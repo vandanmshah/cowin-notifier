@@ -27,7 +27,7 @@ const checkForCenter = (data, pinCode = '') => {
             }
         }
     }));
-    console.log(`Vaccine slots availability: ${pinCode} ${} ${data.centers}`, allData, data.centers)
+    console.log(`Vaccine slots availability for: ${pinCode}`, allData, data.centers)
     return allData;
 };
 
