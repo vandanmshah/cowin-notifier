@@ -47,12 +47,15 @@ const onAddPincodeClick = (e) => {
 
     const addPincodeInput = document.querySelector('.add-pincode-input');
     const addPincodeContainer = document.querySelector('.added-pincode-container');
+    const addPincodeNote = document.querySelector('.added-pincode-note');
+    addPincodeNote.style.display = 'block';
     const searchBtn = document.querySelector('.search-btn');
 
     const pincodeText = document.createElement('p');
     pincodeText.className = 'pincode-text';
     pincodeText.textContent = addPincodeInput.value;
     addPincodeContainer.appendChild(pincodeText);
+
     addedPincode.push(pincodeText.textContent);
     searchBtn.removeAttribute('disabled');
     addPincodeInput.value = '';

@@ -11,6 +11,13 @@
     margin-left: 10px;
 }
 
+.added-pincode-note {
+    display: none;
+    text-align: center;
+}
+.added-pincode-note .added-pincode-first-note {
+    text-align: left;
+}
 .child.added-pincode-container {
     display: flex;
     align-content: center;
@@ -28,4 +35,8 @@ p.pincode-text {
     align-content: center;
     align-items: center;
     margin: 5px;
+}
+
+.sucess-msg {
+    display: none;
 }
