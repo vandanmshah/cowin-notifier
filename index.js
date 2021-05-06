@@ -1,13 +1,12 @@
-const apiEndpointCurrent = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?date=${moment().format('DD.MM.YYYY')}`;
-const apiEndpointTomorrow = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?date=${moment().add(1, 'days').format('DD-MM-YYYY')}`;
+const apiEndpoint = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin`;
 const searchBtn = document.querySelector('.search-btn');
 
 let intervalId = null;
 const addedPincode = []
 
-const callGovtApi = (pinCode, Api) => {
+const callGovtApi = (pinCode) => {
     return new Promise((resolve, reject) => {
-        fetch(`${Api}&pincode=${pinCode}`, {
+        fetch(`${apiEndpoint}?date=${pinCode.date}&pincode=${pinCode.text}`, {
             method: 'GET'
         })
             .then((response) => response.json().then((data => resolve(data))))
@@ -28,7 +27,7 @@ const checkForCenter = (data, pinCode = '') => {
             }
         }
     }));
-    console.log(`Vaccine slots availability: ${pinCode} ${allData}`)
+    console.log(`Vaccine slots availability: ${pinCode} ${allData} ${data.centers}`)
     return allData;
 };
 
@@ -39,15 +38,14 @@ intervalId = setInterval(() => {
         searchBtn.setAttribute('disabled', true);
         const promises = [];
         addedPincode.forEach(pinCode => {
-            promises.push(callGovtApi(pinCode, apiEndpointCurrent));
-            promises.push(callGovtApi(pinCode, apiEndpointTomorrow));
+            promises.push(callGovtApi(pinCode));
         })
 
         Promise.all(promises).then((allResponses) => {
             searchBtn.textContent = 'Add in Reminder list';
             searchBtn.removeAttribute('disabled');
     
-            allResponses.forEach((res, index) => checkForCenter(res, addedPincode[index]));
+            allResponses.forEach((res, index) => checkForCenter(res, addedPincode[index].text));
         });
     }
 }, 5000);
@@ -63,7 +61,15 @@ const onAddPincodeClick = (e) => {
     pincodeText.textContent = addPincodeInput.value;
     addPincodeContainer.appendChild(pincodeText);
 
-    addedPincode.push(pincodeText.textContent);
+    addedPincode.push({
+        text: pincodeText.textContent,
+        date: moment().format('DD.MM.YYYY'),
+    });
+    addedPincode.push({
+        text: pincodeText.textContent,
+        date: moment().add(1, 'days').format('DD-MM-YYYY'),
+    });
+
     searchBtn.removeAttribute('disabled');
     addPincodeInput.value = '';
 };
