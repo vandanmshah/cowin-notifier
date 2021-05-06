@@ -1,5 +1,6 @@
 const apiEndpointCurrent = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?date=${moment().format('DD.MM.YYYY')}`;
 const apiEndpointTomorrow = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?date=${moment().add(1, 'days').format('DD-MM-YYYY')}`;
+const searchBtn = document.querySelector('.search-btn');
 
 let intervalId = null;
 const addedPincode = []
@@ -32,7 +33,10 @@ const checkForCenter = (data, pinCode = '') => {
 };
 
 intervalId = setInterval(() => {
+
     if (addedPincode.length) {
+        searchBtn.textContent = 'Searching from Reminder list';
+        searchBtn.setAttribute('disabled', true);
         const promises = [];
         addedPincode.forEach(pinCode => {
             promises.push(callGovtApi(pinCode, apiEndpointCurrent));
@@ -40,6 +44,9 @@ intervalId = setInterval(() => {
         })
 
         Promise.all(promises).then((allResponses) => {
+            searchBtn.textContent = 'Add in Reminder list';
+            searchBtn.removeAttribute('disabled');
+    
             allResponses.forEach((res, index) => checkForCenter(res, addedPincode[index]));
         });
     }
@@ -50,7 +57,6 @@ const onAddPincodeClick = (e) => {
     const addPincodeContainer = document.querySelector('.added-pincode-container');
     const addPincodeNote = document.querySelector('.added-pincode-note');
     addPincodeNote.style.display = 'block';
-    const searchBtn = document.querySelector('.search-btn');
 
     const pincodeText = document.createElement('p');
     pincodeText.className = 'pincode-text';
