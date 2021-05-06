@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="child added-pincode-container"></div>
+            <div class="child"><h1>Add pincode to get notified</h1></div>
+            <div class="child">
+                Add Pincode: <input onkeypress="return onkeypressEvent(event)" class="add-pincode-input" type="text" />
+                <button onclick="onAddPincodeClick()" class="add-btn">Add in list</button>
+            </div>
+            <div class="child"><button class="search-btn" disabled>Add Reminder</button></div>
+        </div>
+    </body>
+    <script type="text/javascript" src="./index.js"></script>
+</html>

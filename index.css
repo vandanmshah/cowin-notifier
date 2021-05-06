@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+.child {
+    margin: 10px;
+}
+.add-btn {
+    margin-left: 10px;
+}
+
+.child.added-pincode-container {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+p.pincode-text {
+    background-color: #de9933;
+    color: white;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    margin: 5px;
+}
