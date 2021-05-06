@@ -27,6 +27,7 @@ const checkForCenter = (data, pinCode = '') => {
             }
         }
     }));
+    console.log(`Vaccine slots availability: ${pinCode} ${allData}`)
     return allData;
 };
 
