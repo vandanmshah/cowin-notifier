@@ -65,10 +65,6 @@ const onAddPincodeClick = (e) => {
         text: pincodeText.textContent,
         date: moment().format('DD.MM.YYYY'),
     });
-    addedPincode.push({
-        text: pincodeText.textContent,
-        date: moment().add(1, 'days').format('DD-MM-YYYY'),
-    });
 
     searchBtn.removeAttribute('disabled');
     addPincodeInput.value = '';
